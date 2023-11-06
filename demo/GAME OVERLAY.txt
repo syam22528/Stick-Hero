@@ -1,0 +1,16 @@
+GAME OVERLAY:
+
+
+
+1. CLASSES:
+	1. Stick hero character design
+	2. Movement of the character
+	3. Pillars
+	4. Reviving class which involves cherries
+	5. Score
+	6. Cherries
+	7. Background
+	8. Stick and its extension animation
+	9. Visual effects/graphics
+	10. Sound
+	11. restarting, saving progress for when he wants to get back to the same save state next time he comes back to that game. 
