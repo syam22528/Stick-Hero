@@ -7,16 +7,23 @@ import javafx.stage.Stage;
 
 public class Character {
 
+    private double movementSpeed;
+    private boolean isUpright;
+
+    private boolean isDead;
+
+    private double currPosition;
+
     private Image character = new Image("stickhero.png");
     private Image inverse_character = new Image("inverseStickHero.png");
 
-    public Character() {};
+    public Character() {}
 
-    public void StateUp(){
-    }
+    public void move(){}
 
-    public void StateDown(){
-    }
+    public void die(){}
+
+
 
 
 
