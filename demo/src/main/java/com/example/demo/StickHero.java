@@ -18,6 +18,8 @@ import java.io.IOException;
 public class StickHero extends Application {
 
     Stage window;
+
+
     Scene Home, Game;
 
 
@@ -27,10 +29,13 @@ public class StickHero extends Application {
         Block block = new Block();
         window = stage;
 
+        window.setResizable(false);
+
 
 
 
         FXMLLoader fxmlLoader = new FXMLLoader(StickHero.class.getResource("HomePage.fxml"));
+
 
 //        Label label1 = new Label("STICK\nHERO");
 //
