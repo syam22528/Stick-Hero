@@ -6,24 +6,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="585.0" prefWidth="600.0" style="-fx-border-width: 1080;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.HelloController">
+<AnchorPane prefHeight="724.0" prefWidth="600.0" style="-fx-border-width: 1080;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.HelloController">
    <children>
-      <ImageView fitHeight="585.0" fitWidth="600.0" opacity="0.53" pickOnBounds="true">
+      <ImageView fitHeight="733.0" fitWidth="600.0" opacity="0.53" pickOnBounds="true">
          <image>
             <Image url="@../../../mountain2.jpg" />
          </image>
       </ImageView>
-      <ImageView id="StickHeroImage" fitHeight="144.0" fitWidth="145.0" layoutX="-11.0" layoutY="263.0">
+      <ImageView id="StickHeroImage" fitHeight="144.0" fitWidth="145.0" layoutX="-9.0" layoutY="412.0">
          <image>
             <Image url="@../../../stickhero.png" />
          </image>
       </ImageView>
-      <ImageView id="Pillar1" fitHeight="213.0" fitWidth="110.0" layoutX="-4.0" layoutY="371.0">
+      <ImageView id="Pillar1" fitHeight="213.0" fitWidth="127.0" layoutX="-3.0" layoutY="520.0">
          <image>
             <Image url="@../../../block.jpg" />
          </image>
       </ImageView>
-      <ImageView id="Pillar2" fitHeight="213.0" fitWidth="71.0" layoutX="439.0" layoutY="371.0">
+      <ImageView id="Pillar2" fitHeight="213.0" fitWidth="71.0" layoutX="449.0" layoutY="520.0">
          <image>
             <Image url="@../../../block.jpg" />
          </image>

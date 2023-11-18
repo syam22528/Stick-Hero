@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="585.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.HelloController">
+<AnchorPane prefHeight="724.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.HelloController">
    <children>
-      <ImageView fitHeight="585.0" fitWidth="600.0" opacity="0.21" pickOnBounds="true">
+      <ImageView fitHeight="724.0" fitWidth="600.0" opacity="0.21" pickOnBounds="true">
          <image>
             <Image url="@../../../mountain2.jpg" />
          </image>
       </ImageView>
-      <Pane layoutX="108.0" layoutY="64.0" prefHeight="458.0" prefWidth="384.0" style="-fx-background-color: gray; -fx-border-color: black; -fx-border-width: 10;">
+      <Pane layoutX="108.0" layoutY="133.0" prefHeight="458.0" prefWidth="384.0" style="-fx-background-color: gray; -fx-border-color: black; -fx-border-width: 10;">
          <children>
             <Label layoutX="258.0" layoutY="407.0" text="Redo using cherries">
                <font>
