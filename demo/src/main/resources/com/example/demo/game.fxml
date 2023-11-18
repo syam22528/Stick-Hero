@@ -1,26 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="540.0" prefWidth="960.0" style="-fx-border-width: 1080;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.Game">
+<AnchorPane prefHeight="540.0" prefWidth="960.0" style="-fx-border-width: 1080;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.HelloController">
    <children>
       <ImageView fitHeight="585.0" fitWidth="960.0" opacity="0.53" pickOnBounds="true">
          <image>
             <Image url="@../../../mountain2.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="141.0" fitWidth="145.0" layoutX="5.0" layoutY="222.0">
+      <ImageView id="StickHeroImage" fitHeight="144.0" fitWidth="145.0" layoutX="27.0" layoutY="221.0">
          <image>
             <Image url="@../../../stickhero.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="255.0" fitWidth="162.0" layoutX="-4.0" layoutY="329.0">
+      <ImageView id="Pillar1" fitHeight="255.0" fitWidth="164.0" layoutX="-4.0" layoutY="329.0">
          <image>
             <Image url="@../../../block.jpg" />
          </image>
       </ImageView>
+      <ImageView id="Pillar2" fitHeight="255.0" fitWidth="71.0" layoutX="555.0" layoutY="329.0">
+         <image>
+            <Image url="@../../../block.jpg" />
+         </image>
+      </ImageView>
+      <ImageView id="CherryImage" fitHeight="45.0" fitWidth="44.0" layoutX="902.0" layoutY="8.0">
+         <image>
+            <Image url="@../../../cherries.png" />
+         </image>
+      </ImageView>
+      <Label id="label1" layoutX="389.0" layoutY="32.0" text="SCORE:">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Label id="CurrentScore" layoutX="491.0" layoutY="39.0" prefHeight="27.0" prefWidth="44.0" style="-fx-background-color: white;" />
+      <Label id="NumCherries" layoutX="907.0" layoutY="58.0" prefHeight="17.0" prefWidth="34.0" style="-fx-background-color: white;" />
    </children>
 </AnchorPane>

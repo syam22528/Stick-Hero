@@ -30,7 +30,7 @@ public class StickHero extends Application {
 
 
 
-        FXMLLoader fxmlLoader = new FXMLLoader(StickHero.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(StickHero.class.getResource("HomePage.fxml"));
 
 //        Label label1 = new Label("STICK\nHERO");
 //
