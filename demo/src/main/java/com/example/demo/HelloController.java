@@ -38,4 +38,14 @@ public class HelloController {
         window.setScene(Home);
         window.show();
     }
+
+    //This button is for showing the GameOver scene, We are going to remove it as we implement the code for the character dying
+    public void onGameOverclick(ActionEvent event ) throws IOException {
+        Parent GameView = FXMLLoader.load(getClass().getResource("GameOver.fxml"));
+        Scene Home = new Scene(GameView);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(Home);
+        window.show();
+    }
 }
