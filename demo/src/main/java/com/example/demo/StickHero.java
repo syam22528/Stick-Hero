@@ -26,6 +26,10 @@ public class StickHero extends Application {
         Character stickhero = new Character();
         Block block = new Block();
         window = stage;
+
+
+
+
         FXMLLoader fxmlLoader = new FXMLLoader(StickHero.class.getResource("HomePage.fxml"));
 
 //        Label label1 = new Label("STICK\nHERO");
@@ -81,7 +85,6 @@ public class StickHero extends Application {
 //
 
         Home = new Scene(fxmlLoader.load());
-
 //        layout1.setBackground(Homebackground);
 //        layout1.getChildren().addAll(label1, PlayGameButton, Homebutton1, Homebutton2, Homebutton3, Homebutton4, StickHeroImage, BlockImage);
 //        StackPane.setAlignment(label1, Pos.TOP_CENTER);
@@ -106,7 +109,6 @@ public class StickHero extends Application {
 //        window.setMaximized(true);
         window.setTitle("Stick hero");
         window.setScene(Home);
-        window.setResizable(false);
         window.show();
 //
 }

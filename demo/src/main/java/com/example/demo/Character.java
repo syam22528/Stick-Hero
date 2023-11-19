@@ -17,7 +17,6 @@ public class Character {
 
     private Image character = new Image("stickhero.png");
     private Image inverse_character = new Image("inverseStickHero.png");
-
     private Image stickHeroImage = new Image("stickhero.png");
     private ImageView StickHeroImage = new ImageView(stickHeroImage);
 
@@ -33,6 +32,7 @@ public class Character {
         StickHeroImage.setStyle("-fx-translate-x:" + x +";"+ "-fx-translate-y:"+ y +";");
     }
 
+
     public void setStickHerosize(int height, int width){
         StickHeroImage.setFitWidth(width);
         StickHeroImage.setFitHeight(height);
@@ -43,11 +43,4 @@ public class Character {
     public void move(){}
 
     public void die(){}
-
-
-
-
-
-
-
 }
