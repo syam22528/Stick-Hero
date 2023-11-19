@@ -14,16 +14,54 @@ import javafx.scene.text.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class StickHero extends Application {
 
     Stage window;
     Scene Home, Game;
 
+    Character character;
+
+    ArrayList<Block> currBlocks = new ArrayList<>();
+    ArrayList<Integer> scores = new ArrayList<>();
+
+    Stick stick;
+    int cherryCount;
+
+    int score;
+    private boolean isSafe(){
+        return true; //just for now, will be changed after logic implementation
+    }
+
+    private void updateScore(){
+        score++;
+    }
+
+    private void updateCherryCount(){
+        cherryCount++;
+    }
+
+    private void getDistanceToNextBlock(){
+
+    }
+
+    private void revive(){
+
+    }
+
+    private void endGame(){
+
+    }
+
+    private void generateNextBlock(){
+
+    }
+
 
     @Override
     public void start(Stage stage) throws IOException {
-        Character stickhero = new Character();
+        character = new Character();
         Block block = new Block();
         window = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(StickHero.class.getResource("HomePage.fxml"));

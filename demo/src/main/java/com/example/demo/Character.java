@@ -38,6 +38,9 @@ public class Character {
         StickHeroImage.setFitHeight(height);
     }
 
+    public void reverseCharacter(){
+
+    }
 
 
     public void move(){}
