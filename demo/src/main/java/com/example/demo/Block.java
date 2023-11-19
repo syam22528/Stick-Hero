@@ -48,4 +48,13 @@ public class Block extends AnchorPane {
         perfect.setX((block.getX() + (block.getWidth()/2)));
         perfect.setFill(Color.RED);
     }
+
+
+    public double getLocation(){
+        return this.getLayoutX();
+    }
+
+    public double getBlockWidth(){
+        return this.getWidth();
+    }
 }

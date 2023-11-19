@@ -24,8 +24,8 @@ public class StickHero extends Application {
     Character character;
 
     ArrayList<Block> currBlocks = new ArrayList<>();
-    ArrayList<Integer> scores = new ArrayList<>();
-
+//    ArrayList<Integer> scores = new ArrayList<>();
+    Scores allScores = new Scores();
     Stick stick;
     int cherryCount;
 
@@ -35,9 +35,11 @@ public class StickHero extends Application {
     }
 
     private void updateScore(){
-        score++;
+        allScores.scores.add(score);
     }
+     private void cherryDisappear(){
 
+     }
     private void updateCherryCount(){
         cherryCount++;
     }
