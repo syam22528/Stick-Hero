@@ -45,5 +45,7 @@ public class Character {
 
     public void move(){}
 
-    public void die(){}
+    public void die(){
+        isDead = true;
+    }
 }

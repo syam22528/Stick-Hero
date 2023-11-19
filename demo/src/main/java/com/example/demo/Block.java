@@ -57,4 +57,7 @@ public class Block extends AnchorPane {
     public double getBlockWidth(){
         return this.getWidth();
     }
+
+    public void HitRedArea(){
+    }
 }
