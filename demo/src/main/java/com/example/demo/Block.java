@@ -58,7 +58,6 @@ public class Block extends AnchorPane {
     public double getLocation(){
         return this.getLayoutX();
     }
-
     public double getBlockWidth(){
         return this.getWidth();
     }
