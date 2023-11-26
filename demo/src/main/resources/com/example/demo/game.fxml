@@ -6,23 +6,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="724.0" prefWidth="600.0" style="-fx-border-width: 1080;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GameController">
+<AnchorPane fx:id="gameRoot" prefHeight="724.0" prefWidth="600.0" style="-fx-border-width: 1080;" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.example.demo.GameController" xmlns:fx="http://javafx.com/fxml/1" >
     <children>
         <ImageView fitHeight="733.0" fitWidth="600.0" opacity="0.53" pickOnBounds="true">
             <image>
                 <Image url="@../../../mountain2.jpg" />
             </image>
         </ImageView>
-        <ImageView id="StickHeroImage" fitHeight="144.0" fitWidth="145.0" layoutX="-9.0" layoutY="412.0">
-            <image>
-                <Image url="@../../../stickhero.png" />
-            </image>
-        </ImageView>
-        <ImageView id="Pillar1" fitHeight="213.0" fitWidth="127.0" layoutX="-3.0" layoutY="520.0">
-            <image>
-                <Image url="@../../../block.jpg" />
-            </image>
-        </ImageView>
+        <Block layoutX="-3.0" layoutY="520.0"/>
+
         <Block layoutX="127" layoutY="520" />
 
         <ImageView id="CherryImage" fitHeight="45.0" fitWidth="44.0" layoutX="553.0" layoutY="18.0">
@@ -37,6 +29,5 @@
         </Label>
         <Label id="CurrentScore" layoutX="342.0" layoutY="40.0" prefHeight="27.0" prefWidth="44.0" style="-fx-background-color: white;" />
         <Label id="NumCherries" layoutX="558.0" layoutY="73.0" prefHeight="17.0" prefWidth="34.0" style="-fx-background-color: white;" />
-      <Button layoutX="38.0" layoutY="41.0" mnemonicParsing="false" onAction="#onGameOverclick" text="GAME OVER" />
     </children>
 </AnchorPane>

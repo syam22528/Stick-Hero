@@ -75,7 +75,13 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
+                        
+                            <archive>
+                        <manifest>
                             <mainClass>com.example.demo/com.example.demo.StickHero</mainClass>
+                        </manifest>
+                    </archive>
+                            
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

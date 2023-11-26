@@ -1,41 +1,36 @@
 package com.example.demo;
 
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-public class Character {
+import java.io.IOException;
+
+public class Character extends AnchorPane {
 
     private double movementSpeed;
-    private boolean isUpright;
+    private boolean isUpright = true;
 
-    private boolean isDead;
+    private boolean isDead = false;
 
     private double currPosition;
 
-    private Image character = new Image("stickhero.png");
-    private Image inverse_character = new Image("inverseStickHero.png");
-    private Image stickHeroImage = new Image("stickhero.png");
-    private ImageView StickHeroImage = new ImageView(stickHeroImage);
-
+    @FXML
+    private ImageView character;
 
     public Character() {
-    }
-
-    public ImageView getStickHeroImage() {
-        return StickHeroImage;
-    }
-
-    public void setStickHeroCoordinates(int x, int y){
-        StickHeroImage.setStyle("-fx-translate-x:" + x +";"+ "-fx-translate-y:"+ y +";");
-    }
-
-
-    public void setStickHerosize(int height, int width){
-        StickHeroImage.setFitWidth(width);
-        StickHeroImage.setFitHeight(height);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("character.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void reverseCharacter(){
@@ -43,7 +38,35 @@ public class Character {
     }
 
 
-    public void move(){}
+    public void move(double l){
+        moveHero moveHero = new moveHero(l);
+        moveHero.start();
+    }
+
+    private class moveHero extends Thread{
+        double l;
+
+        public moveHero(double l) {
+            this.l = l;
+        }
+
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(370);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            for(int i = 0;i<l;i++){
+                character.setX(character.getX()+1);
+                try {
+                    Thread.sleep(3);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
 
     public void die(){
         isDead = true;

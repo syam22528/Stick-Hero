@@ -30,16 +30,18 @@ public class Block extends AnchorPane {
             throw new RuntimeException(e);
         }
 
-        customiseWidth();
+        Random random = new Random();
+        int width = random.nextInt(50,200);
+        double x = random.nextDouble(150,300);
+        customiseWidth(width,x);
         addPerfect();
     }
 
-    public void customiseWidth() {
-        Random random = new Random();
-        block.setWidth(random.nextInt(50, 300));
-        block.setX(random.nextDouble(100, 200));
+    public void customiseWidth(int width, double x) {
+        block.setWidth(width);
+        block.setX(x);
 //        block.setY(2);
-        //TOdo: find width of home platform and put it in fxml ka offset
+        //TODO: find width of home platform and put it in fxml ka offset
     }
 
     @FXML
@@ -48,7 +50,6 @@ public class Block extends AnchorPane {
         perfect.setX((block.getX() + (block.getWidth()/2)));
         perfect.setFill(Color.RED);
     }
-
 
     public double getLocation(){
         return this.getLayoutX();

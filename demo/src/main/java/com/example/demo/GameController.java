@@ -1,24 +1,58 @@
 package com.example.demo;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.io.IOException;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 public class GameController {
-    //This button is for showing the GameOver scene, We are going to remove it as we implement the code for the character dying
-    public void onGameOverclick(ActionEvent event ) throws IOException {
-        Parent GameView = FXMLLoader.load(getClass().getResource("GameOver.fxml"));
-        Scene Home = new Scene(GameView);
 
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(Home);
-        window.show();
+    @FXML
+    AnchorPane gameRoot;
+
+    Stick stick;
+    Character character;
+
+    private boolean isSafe() {
+        return true; //just for now, will be changed after logic implementation
     }
 
+    private void getDistanceToNextBlock() {
 
+    }
+
+    private void revive() {
+
+    }
+
+    private void endGame() {
+
+    }
+
+    private void generateNextBlock() {
+
+    }
+
+    @FXML
+    public void initialize() {
+        character = new Character();
+        stick = new Stick();
+        gameRoot.getChildren().addAll(stick, character);
+        stick.setLayoutX(42);
+        stick.setLayoutY(412);
+        character.setLayoutY(412);
+        gameRoot.addEventFilter(MouseEvent.MOUSE_PRESSED,new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                stick.startGrow();
+            }
+        });
+        gameRoot.addEventFilter(MouseEvent.MOUSE_RELEASED,new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                stick.stopGrow();
+                character.move(stick.getLength());
+            }
+        });
+    }
 }
