@@ -1,6 +1,9 @@
 package com.example.demo;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.RotateTransition;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -60,15 +63,19 @@ public class Stick extends AnchorPane {
             rotater.setPivotX(0);
             rotater.setPivotY(0);
             stick.getTransforms().add(rotater);
-            for(int i = 0;i<89;i++) {
-                    rotater.setAngle(1);
-                    stick.getTransforms().add(rotater);
-                try {
-                    Thread.sleep(3);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.ZERO, new KeyValue(rotater.angleProperty(), 0)),
+                    new KeyFrame(Duration.millis(270), new KeyValue(rotater.angleProperty(), 90)));
+            timeline.play();
+//            for(int i = 0;i<89;i++) {
+//                    rotater.setAngle(1);
+//                    stick.getTransforms().add(rotater);
+//                try {
+//                    Thread.sleep(3);
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
+//            }
         }
     }
 
