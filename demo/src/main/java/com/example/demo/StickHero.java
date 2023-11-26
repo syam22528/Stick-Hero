@@ -32,8 +32,7 @@ public class StickHero extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(StickHero.class.getResource("HomePage.fxml"));
         Parent sc = fxmlLoader.load();
         Home = new Scene(sc);
-
-        window.setTitle("69420");
+        window.setTitle("codimg");
         window.setScene(Home);
         window.setResizable(false);
         window.show();

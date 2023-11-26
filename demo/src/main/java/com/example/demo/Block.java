@@ -33,6 +33,7 @@ public class Block extends AnchorPane {
         Random random = new Random();
         int width = random.nextInt(50,200);
         double x = random.nextDouble(150,300);
+        this.setLayoutY(520);
         customiseWidth(width,x);
         addPerfect();
     }
@@ -49,6 +50,9 @@ public class Block extends AnchorPane {
     public void addPerfect() {
         perfect.setX((block.getX() + (block.getWidth()/2)));
         perfect.setFill(Color.RED);
+    }
+    public void removeDaPerfect(){
+        perfect.setHeight(0);
     }
 
     public double getLocation(){

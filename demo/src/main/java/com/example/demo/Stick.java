@@ -56,17 +56,13 @@ public class Stick extends AnchorPane {
     private class rotateStick extends Thread{
         @Override
         public void run() {
-            double rotate = 0;
             Rotate rotater = new Rotate();
             rotater.setPivotX(0);
             rotater.setPivotY(0);
             stick.getTransforms().add(rotater);
-            while(true) {
-                if(rotate == 91)
-                    return;
+            for(int i = 0;i<89;i++) {
                 rotater.setAngle(1);
                 stick.getTransforms().add(rotater);
-                rotate += 1;
                 try {
                     Thread.sleep(3);
                 } catch (InterruptedException e) {

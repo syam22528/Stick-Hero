@@ -13,9 +13,6 @@
                 <Image url="@../../../mountain2.jpg" />
             </image>
         </ImageView>
-        <Block layoutX="-3.0" layoutY="520.0"/>
-
-        <Block layoutX="127" layoutY="520" />
 
         <ImageView id="CherryImage" fitHeight="45.0" fitWidth="44.0" layoutX="553.0" layoutY="18.0">
             <image>
