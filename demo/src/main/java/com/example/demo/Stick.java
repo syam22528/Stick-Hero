@@ -61,8 +61,8 @@ public class Stick extends AnchorPane {
             rotater.setPivotY(0);
             stick.getTransforms().add(rotater);
             for(int i = 0;i<89;i++) {
-                rotater.setAngle(1);
-                stick.getTransforms().add(rotater);
+                    rotater.setAngle(1);
+                    stick.getTransforms().add(rotater);
                 try {
                     Thread.sleep(3);
                 } catch (InterruptedException e) {

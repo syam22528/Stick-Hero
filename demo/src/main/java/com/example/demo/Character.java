@@ -53,7 +53,7 @@ public class Character extends AnchorPane {
         @Override
         public void run() {
             try {
-                Thread.sleep(370);
+                Thread.sleep(300);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

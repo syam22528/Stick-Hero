@@ -36,14 +36,14 @@ public class GameController {
     @FXML
     public void initialize() {
         Block startBlock = new Block();
-        startBlock.customiseWidth(100, 0);
+        startBlock.customiseWidth(80, 0);
         startBlock.removeDaPerfect();
         Block block2 = new Block();
         character = new Character();
         stick = new Stick();
         gameRoot.getChildren().addAll(stick, character,startBlock, block2);
-        stick.setLayoutX(42);
-        stick.setLayoutY(520);
+        stick.setLayoutX(80);
+        stick.setLayoutY(519);
         character.setLayoutY(412);
         gameRoot.addEventFilter(MouseEvent.MOUSE_PRESSED,new EventHandler<MouseEvent>() {
             @Override
