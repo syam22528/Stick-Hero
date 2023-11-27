@@ -1,14 +1,12 @@
 package com.example.demo;
 
 
-import javafx.animation.ScaleTransition;
+import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.image.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
@@ -51,8 +49,31 @@ public class Block extends AnchorPane {
         perfect.setX((block.getX() + (block.getWidth()/2)));
         perfect.setFill(Color.RED);
     }
+
+
+
+
+
     public void removeDaPerfect(){
         perfect.setHeight(0);
+    }
+
+    public double getX(){
+        return block.getX();
+    }
+
+    public void resetBlock(){
+        Random random = new Random();
+        int width = random.nextInt(50,200);
+        double x = random.nextDouble(150,300);
+        this.setLayoutY(520);
+        this.setOpacity(0);
+        customiseWidth(width,x);
+        addPerfect();
+    }
+
+    public Rectangle getBlock() {
+        return block;
     }
 
     public double getLocation(){

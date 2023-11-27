@@ -1,8 +1,6 @@
 package com.example.demo;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
@@ -34,29 +32,29 @@ public class GameController {
 
     }
 
-    private void generateNextBlock() {
-
+    private void generateNextBlock(Block block) {
+        Block blk = new Block();
+        blk.getBlock().setOpacity(0);
+        block = blk;
     }
+
 
     @FXML
     public void initialize() throws InterruptedException {
 
 
 
-        Block startBlock = new Block();
+        Block block1 = new Block();
 
 
-        startBlock.customiseWidth(80, 0);
-        startBlock.removeDaPerfect();
+        block1.customiseWidth(80, 0);
+        block1.removeDaPerfect();
         Block block2 = new Block();
-        Line path = new Line(block2.getLayoutX()+150, 107, -80, 107);
 
-
-        PathTransition transition = new PathTransition();
 
         character = new Character();
         stick = new Stick();
-        gameRoot.getChildren().addAll(stick, character,startBlock, block2);
+        gameRoot.getChildren().addAll(stick, character,block1, block2);
         stick.setLayoutX(80);
         stick.setLayoutY(519);
         character.setLayoutY(412);
@@ -84,21 +82,64 @@ public class GameController {
 //            // Handle interrupted exception (if necessary)
 //            e.printStackTrace();
 //        }
-        transition.setNode(block2);
-        transition.setPath(path);
-        transition.setDuration(Duration.seconds(3));
-        transition.setCycleCount(1);
+
+            TranslateTransition transition1 = new TranslateTransition();
+            transition1.setNode(block2);
+            transition1.setByX(-block2.getX());
+
+
+
+            TranslateTransition transition2 = new TranslateTransition();
+            transition2.setNode(block1);
+            transition2.setByX(-100);
 
 
 
 
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(2), event -> transition.play())
+            ParallelTransition parallelTransition = new ParallelTransition();
+            parallelTransition.getChildren().addAll(transition1, transition2);
 
-        );
+            // Play the parallel transition
 
 
-        timeline.play();
+//            Timeline timeline2 = new Timeline(
+//                    new KeyFrame(Duration.seconds(2))
+//            );
+//            timeline2.play();
+            FadeTransition fadeTransition;
+            Timeline timeline1 = new Timeline(
+                        new KeyFrame(Duration.seconds(1), event ->block1.resetBlock())
+                );
+
+            fadeTransition = new FadeTransition(Duration.seconds(1), block1);
+
+
+                // Set the fromValue and toValue (opacity levels)
+
+
+
+
+            fadeTransition.setToValue(1);
+
+            fadeTransition.setCycleCount(1);
+
+            SequentialTransition transition = new SequentialTransition();
+            transition.getChildren().addAll(parallelTransition, timeline1, fadeTransition);
+
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.seconds(2), event ->transition.play())
+            );
+            timeline.play();
+
+
+
+
+
+
+
+
+
+
 
 
 

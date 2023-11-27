@@ -21,8 +21,11 @@ public class HomeController {
     public void onPlaybuttonclick(ActionEvent event ) throws IOException {
         Parent GameView = FXMLLoader.load(getClass().getResource("game.fxml"));
         Scene Game = new Scene(GameView);
+
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
         window.setScene(Game);
+        window.setResizable(false);
         window.show();
     }
 

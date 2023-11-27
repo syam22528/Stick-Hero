@@ -66,6 +66,7 @@ public class Character extends AnchorPane {
                 }
             }
         }
+
     }
 
     public void die(){
