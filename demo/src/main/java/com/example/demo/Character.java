@@ -2,11 +2,8 @@ package com.example.demo;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -31,6 +28,7 @@ public class Character extends AnchorPane {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        character.setLayoutY(412);
     }
 
     public void reverseCharacter(){
@@ -43,12 +41,17 @@ public class Character extends AnchorPane {
         moveHero.start();
     }
 
+    public double getPosition(){
+        return currPosition;
+    }
+
     private class moveHero extends Thread{
         double l;
 
         public moveHero(double l) {
             this.l = l;
         }
+
 
         @Override
         public void run() {
@@ -59,17 +62,24 @@ public class Character extends AnchorPane {
             }
             for(int i = 0;i<l;i++){
                 character.setX(character.getX()+1);
+
                 try {
                     Thread.sleep(3);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
+            setCurrPosition(l);
+            System.out.println(getPosition()+ "\n");
         }
 
     }
 
     public void die(){
         isDead = true;
+    }
+
+    public void setCurrPosition(double position){
+        currPosition = position;
     }
 }

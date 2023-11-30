@@ -29,6 +29,8 @@ public class Stick extends AnchorPane {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        this.setLayoutX(80);
+        this.setLayoutY(519);
     }
 
     public void startGrow(){
@@ -83,4 +85,12 @@ public class Stick extends AnchorPane {
     public double getLength(){
         return this.length;
     }
+
+    public void reset(){
+        stick.setHeight(0);
+        this.setLayoutX(80);
+        this.setLayoutY(519);
+    }
+
+
 }

@@ -29,7 +29,7 @@ public class Block extends AnchorPane {
         }
 
         Random random = new Random();
-        int width = random.nextInt(50,200);
+        int width = random.nextInt(50,125);
         double x = random.nextDouble(150,300);
         this.setLayoutY(520);
         customiseWidth(width,x);
