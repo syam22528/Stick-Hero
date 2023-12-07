@@ -22,7 +22,6 @@ public class HomeController {
         Parent GameView = FXMLLoader.load(getClass().getResource("game.fxml"));
         Scene Game = new Scene(GameView);
         Scores score = new Scores();
-        score.currScore = 0;
 
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 

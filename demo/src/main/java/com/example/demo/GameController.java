@@ -42,14 +42,12 @@ public class GameController {
     }
 
     Stick stick = new Stick();
+    @FXML
+    Scores scorern;
 
     @FXML
     public void initialize() throws InterruptedException {
-
-
         Block block1 = new Block();
-
-
         block1.customiseWidth(100, 0);
         block1.removeDaPerfect();
         Block block2 = new Block();
@@ -76,8 +74,9 @@ public class GameController {
                 Duration delayDuration = Duration.millis(800); // Adjust delay duration as needed
                 KeyFrame delay = new KeyFrame(delayDuration, event -> {
                     // Rest of the code after the delay
-                    System.out.println("stick x : " +  stick.getLayoutX() + " length : " + stick.getLength() + " block endpoint : " + block2.getEnd_point() + " block start point : " + block2.getStart_point() + "\n");
+                    System.out.println("character x: "+character.getLayoutX()+" stick x : " +  stick.getLayoutX() + " length : " + stick.getLength() + " block endpoint : " + block2.getEnd_point() + " block start point : " + block2.getStart_point() + "\n");
                     if ((stick.getLayoutX() + stick.getLength()) <= block2.getEnd_point() && (stick.getLayoutX() + stick.getLength()) >= block2.getStart_point()) {
+                        scorern.AddGameScore();
                         try {
                             Thread.sleep(300);
                         } catch (InterruptedException e) {
@@ -85,7 +84,7 @@ public class GameController {
                         }
                         TranslateTransition transitionn = new TranslateTransition();
                         transitionn.setNode(character);
-                        transitionn.setToX(block2.rand);
+                        transitionn.setByX(block2.rand-93+block2.blockWidth);
                         transitionn.setDuration(Duration.millis(1000));
                         transitionn.play();
                         TranslateTransition transition1 = new TranslateTransition();
@@ -96,7 +95,7 @@ public class GameController {
                         transition2.setByX(-block2.rand);
                         TranslateTransition transition3 = new TranslateTransition();
                         transition3.setNode(character);
-                        transition3.setByX(-block2.rand);
+                        transition3.setByX(-(block2.rand-93+block2.blockWidth));
                         TranslateTransition fadeTransition2 = new TranslateTransition();
                         fadeTransition2.setNode(stick);
                         fadeTransition2.setByX(-block2.rand);

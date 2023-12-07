@@ -86,6 +86,7 @@ public class Block extends AnchorPane {
         double x = random.nextDouble(150,300);
         customiseWidth(width,prev+x);
         addPerfect();
+        blockWidth = width;
         rand = x;
     }
 
