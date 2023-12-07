@@ -56,7 +56,6 @@ public class GameController {
 
         character = new Character();
         gameRoot.getChildren().addAll(character, block1, block2, stick);
-
         System.out.println(block2.getX() + "\n");
         gameRoot.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
@@ -77,7 +76,8 @@ public class GameController {
                 Duration delayDuration = Duration.millis(800); // Adjust delay duration as needed
                 KeyFrame delay = new KeyFrame(delayDuration, event -> {
                     // Rest of the code after the delay
-                    if ((stick.getLayoutX() + stick.getLength()) >= block2.getEnd_point() || (stick.getLayoutX() + stick.getLength()) <= block2.getStart_point()) {
+                    System.out.println("stick x : " +  stick.getLayoutX() + " length : " + stick.getLength() + " block endpoint : " + block2.getEnd_point() + " block start point : " + block2.getStart_point() + "\n");
+                    if ((stick.getLayoutX() + stick.getLength()) <= block2.getEnd_point() && (stick.getLayoutX() + stick.getLength()) >= block2.getStart_point()) {
                         try {
                             Thread.sleep(300);
                         } catch (InterruptedException e) {

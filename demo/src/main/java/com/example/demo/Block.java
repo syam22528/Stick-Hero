@@ -15,27 +15,23 @@ public class Block extends AnchorPane {
     public void becomeWhatYouWereMeantToBe(double rand){
         block.setX(rand+block.getX());
     }
-    private double start_point;
-    private double end_point;
 
     public double getStart_point() {
-        return start_point;
+        return this.getX();
     }
 
-    public void setStart_point(double start_point) {
-        this.start_point = start_point;
-    }
+
 
     public double getEnd_point() {
-        return end_point;
+        return this.getX() + this.getBlockWidth();
     }
 
-    public void setEnd_point(double end_point) {
-        this.end_point = end_point;
-    }
+
 
     @FXML
     public Rectangle block;
+
+    double blockWidth;
 
     public Block() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("block.fxml"));
@@ -53,8 +49,7 @@ public class Block extends AnchorPane {
         this.setLayoutY(520);
         customiseWidth(width,x);
         addPerfect();
-        this.start_point = block.getX();
-        this.end_point = this.start_point + this.getBlockWidth();
+        this.blockWidth = width;
         rand = x;
     }
 
@@ -84,13 +79,14 @@ public class Block extends AnchorPane {
     }
 
     double rand;
+
     public void resetBlock(double prev){
         Random random = new Random();
         int width = random.nextInt(50,200);
         double x = random.nextDouble(150,300);
         customiseWidth(width,prev+x);
         addPerfect();
-        rand =x;
+        rand = x;
     }
 
     public Rectangle getBlock() {
@@ -101,7 +97,7 @@ public class Block extends AnchorPane {
         return this.getLayoutX();
     }
     public double getBlockWidth(){
-        return this.getWidth();
+        return this.blockWidth;
     }
 
     public void HitRedArea(){
