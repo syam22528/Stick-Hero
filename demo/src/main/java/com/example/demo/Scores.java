@@ -1,9 +1,12 @@
 package com.example.demo;
 
 
+import javafx.scene.layout.AnchorPane;
+
 import java.util.ArrayList;
 
-public class Scores {
+public class Scores extends AnchorPane {
+    int currScore;
 
     private ArrayList<Integer> scores;
 

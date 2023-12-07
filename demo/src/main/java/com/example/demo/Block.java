@@ -1,19 +1,38 @@
 package com.example.demo;
 
 
-import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Random;
 
 public class Block extends AnchorPane {
+
+    public void becomeWhatYouWereMeantToBe(double rand){
+        block.setX(rand+block.getX());
+    }
+    private double start_point;
+    private double end_point;
+
+    public double getStart_point() {
+        return start_point;
+    }
+
+    public void setStart_point(double start_point) {
+        this.start_point = start_point;
+    }
+
+    public double getEnd_point() {
+        return end_point;
+    }
+
+    public void setEnd_point(double end_point) {
+        this.end_point = end_point;
+    }
 
     @FXML
     public Rectangle block;
@@ -29,17 +48,19 @@ public class Block extends AnchorPane {
         }
 
         Random random = new Random();
-        int width = random.nextInt(50,125);
+        double width = random.nextDouble(50,125);
         double x = random.nextDouble(150,300);
         this.setLayoutY(520);
         customiseWidth(width,x);
         addPerfect();
+        this.start_point = block.getX();
+        this.end_point = this.start_point + this.getBlockWidth();
+        rand = x;
     }
 
-    public void customiseWidth(int width, double x) {
+    public void customiseWidth(double width, double x) {
         block.setWidth(width);
         block.setX(x);
-//        block.setY(2);
         //TODO: find width of home platform and put it in fxml ka offset
     }
 
@@ -62,14 +83,14 @@ public class Block extends AnchorPane {
         return block.getX();
     }
 
-    public void resetBlock(){
+    double rand;
+    public void resetBlock(double prev){
         Random random = new Random();
         int width = random.nextInt(50,200);
         double x = random.nextDouble(150,300);
-        this.setLayoutY(520);
-        this.setOpacity(0);
-        customiseWidth(width,x);
+        customiseWidth(width,prev+x);
         addPerfect();
+        rand =x;
     }
 
     public Rectangle getBlock() {

@@ -22,5 +22,7 @@ public class OverController {
 
     public void onReviveUsingCherriesButtonClick(){}
 
-    public void onReplayButtonClick(){}
+    public void onReplayButtonClick(){
+
+    }
 }

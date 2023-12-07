@@ -2,7 +2,6 @@ package com.example.demo;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
-import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -66,19 +65,10 @@ public class Stick extends AnchorPane {
             rotater.setPivotX(0);
             rotater.setPivotY(0);
             stick.getTransforms().add(rotater);
-//            Timeline timeline = new Timeline(
-//                    new KeyFrame(Duration.ZERO, new KeyValue(rotater.angleProperty(), 0)),
-//                    new KeyFrame(Duration.millis(270), new KeyValue(rotater.angleProperty(), 90)));
-//            timeline.play();
-            for(int i = 0;i<89;i++) {
-                    rotater.setAngle(1);
-                    stick.getTransforms().add(rotater);
-                try {
-                    Thread.sleep(3);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.ZERO, new KeyValue(rotater.angleProperty(), 0)),
+                    new KeyFrame(Duration.millis(270), new KeyValue(rotater.angleProperty(), 90)));
+            timeline.play();
         }
     }
 
@@ -86,11 +76,18 @@ public class Stick extends AnchorPane {
         return this.length;
     }
 
-    public void reset(){
+    public void reset(double rand){
+        System.out.println("reset");
+        growStick = new growStick();
+        rotateStick = new rotateStick();
+        stick.setY(stick.getY()+length);
+        length = 0;
+        this.setLayoutX(rand+this.getLayoutX());
+        Rotate rotater = new Rotate();
+        rotater.setPivotX(0);
+        rotater.setPivotY(0);
+        rotater.setAngle(-90);
+        stick.getTransforms().add(rotater);
         stick.setHeight(0);
-        this.setLayoutX(80);
-        this.setLayoutY(519);
     }
-
-
 }

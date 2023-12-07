@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class GameController {
@@ -22,7 +23,6 @@ public class GameController {
     @FXML
     AnchorPane gameRoot;
 
-    Stick stick;
     Character character;
 
     private boolean isSafe() {
@@ -41,38 +41,30 @@ public class GameController {
 
     }
 
-    private void generateNextBlock(Block block) {
-        Block blk = new Block();
-        blk.getBlock().setOpacity(0);
-        block = blk;
-    }
-
+    Stick stick = new Stick();
 
     @FXML
     public void initialize() throws InterruptedException {
 
 
-
         Block block1 = new Block();
 
 
-        block1.customiseWidth(80, 0);
+        block1.customiseWidth(100, 0);
         block1.removeDaPerfect();
         Block block2 = new Block();
 
-
         character = new Character();
-        stick = new Stick();
-        gameRoot.getChildren().addAll(stick, character,block1, block2);
+        gameRoot.getChildren().addAll(character, block1, block2, stick);
 
-        System.out.println(block2.getX()+ "\n");
-        gameRoot.addEventFilter(MouseEvent.MOUSE_PRESSED,new EventHandler<MouseEvent>() {
+        System.out.println(block2.getX() + "\n");
+        gameRoot.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 stick.startGrow();
             }
         });
-        gameRoot.addEventFilter(MouseEvent.MOUSE_RELEASED,new EventHandler<MouseEvent>() {
+        gameRoot.addEventFilter(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 try {
@@ -82,78 +74,49 @@ public class GameController {
                 }
 
 
-
-
                 Duration delayDuration = Duration.millis(800); // Adjust delay duration as needed
                 KeyFrame delay = new KeyFrame(delayDuration, event -> {
                     // Rest of the code after the delay
-                    if ((stick.getLayoutX() + stick.getLength()) >= block2.getX()) {
-                        character.move(block2.getX());
-
+                    if ((stick.getLayoutX() + stick.getLength()) >= block2.getEnd_point() || (stick.getLayoutX() + stick.getLength()) <= block2.getStart_point()) {
+                        try {
+                            Thread.sleep(300);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        TranslateTransition transitionn = new TranslateTransition();
+                        transitionn.setNode(character);
+                        transitionn.setToX(block2.rand);
+                        transitionn.setDuration(Duration.millis(1000));
+                        transitionn.play();
                         TranslateTransition transition1 = new TranslateTransition();
                         transition1.setNode(block2);
-                        transition1.setByX(-block2.getX());
-
-
-
-
-
+                        transition1.setByX(-block2.rand);
                         TranslateTransition transition2 = new TranslateTransition();
                         transition2.setNode(block1);
-                        transition2.setByX(-100);
-
+                        transition2.setByX(-block2.rand);
                         TranslateTransition transition3 = new TranslateTransition();
                         transition3.setNode(character);
-                        transition3.setByX(-block2.getX());
-
-                        FadeTransition fadeTransition2 = new FadeTransition(Duration.millis(200), stick);
-                        fadeTransition2.setToValue(0);
-
-                        fadeTransition2.setCycleCount(1);
-
+                        transition3.setByX(-block2.rand);
+                        TranslateTransition fadeTransition2 = new TranslateTransition();
+                        fadeTransition2.setNode(stick);
+                        fadeTransition2.setByX(-block2.rand);
+                        double rand = block2.rand;
                         ParallelTransition parallelTransition = new ParallelTransition();
                         parallelTransition.getChildren().addAll(transition1, transition2, transition3, fadeTransition2);
-
-                        // Play the parallel transition
-
-
-//            Timeline timeline2 = new Timeline(
-//                    new KeyFrame(Duration.seconds(2))
-//            );
-//            timeline2.play();
-                        FadeTransition fadeTransition;
                         Timeline timeline1 = new Timeline(
-                                new KeyFrame(Duration.seconds(1), event1 ->block1.resetBlock())
+                                new KeyFrame(Duration.millis(1), event1 -> block2.resetBlock(block2.getX()))
                         );
 
-                        fadeTransition = new FadeTransition(Duration.seconds(1), block1);
-
-
-
-                        Timeline stickReset = new Timeline(
-                                new KeyFrame(Duration.seconds(1), event1 ->stick.reset())
+                        Timeline timeline2 = new Timeline(
+                                new KeyFrame(Duration.millis(1), event1 -> stick.reset(rand))
                         );
-
-
-
-
-
-
-
-                        // Set the fromValue and toValue (opacity levels)
-
-
-
-
-                        fadeTransition.setToValue(1);
-
-                        fadeTransition.setCycleCount(1);
-
+                        Timeline timeline3 = new Timeline(
+                                new KeyFrame(Duration.millis(1), event1 -> block1.becomeWhatYouWereMeantToBe(rand))
+                        );
                         SequentialTransition transition = new SequentialTransition();
-                        transition.getChildren().addAll(parallelTransition, timeline1, fadeTransition, stickReset);
-
+                        transition.getChildren().addAll(parallelTransition, timeline2, timeline3, timeline1);
                         Timeline timeline = new Timeline(
-                                new KeyFrame(Duration.seconds(2), event2 ->transition.play())
+                                new KeyFrame(Duration.seconds(2), event2 -> transition.play())
                         );
                         timeline.play();
                     } else {
@@ -173,8 +136,6 @@ public class GameController {
                 // Create a timeline with the delay and play it
                 Timeline timeline = new Timeline(delay);
                 timeline.play();
-
-
 
 
             }
