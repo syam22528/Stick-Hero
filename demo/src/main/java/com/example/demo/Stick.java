@@ -19,6 +19,7 @@ public class Stick extends AnchorPane {
     @FXML
     public Rectangle stick;
     private growStick growStick = new growStick();
+
     public Stick() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("stick.fxml"));
         fxmlLoader.setRoot(this);
@@ -32,24 +33,31 @@ public class Stick extends AnchorPane {
         this.setLayoutY(519);
     }
 
-    public void startGrow(){
-        System.out.println("stared");
-        growStick.start();
-    }
-    public void stopGrow() throws InterruptedException {
-        System.out.println("stopped");
-        growStick.stop();
-//        wait(500);
-        rotateStick.start();
+    boolean cangro = true;
+    public void startGrow() {
+        if (cangro) {
+            System.out.println("stared");
+            growStick.start();
+        }
     }
 
-    private class growStick extends Thread{
+    public void stopGrow() throws InterruptedException {
+        System.out.println("stopped");
+        if (cangro) {
+            growStick.stop();
+            rotateStick.start();
+        }
+        cangro = false;
+//        wait(500);
+    }
+
+    private class growStick extends Thread {
         @Override
         public void run() {
-            while(true) {
+            while (true) {
                 stick.setHeight(length);
                 length += 1;
-                stick.setY(stick.getY()-1);
+                stick.setY(stick.getY() - 1);
                 try {
                     Thread.sleep(3);
                 } catch (InterruptedException e) {
@@ -58,7 +66,8 @@ public class Stick extends AnchorPane {
             }
         }
     }
-    private class rotateStick extends Thread{
+
+    private class rotateStick extends Thread {
         @Override
         public void run() {
             Rotate rotater = new Rotate();
@@ -72,17 +81,18 @@ public class Stick extends AnchorPane {
         }
     }
 
-    public double getLength(){
+    public double getLength() {
         return this.length;
     }
 
-    public void reset(double rand){
+    public void reset(double rand) {
         System.out.println("reset");
         growStick = new growStick();
         rotateStick = new rotateStick();
-        stick.setY(stick.getY()+length);
+        stick.setY(stick.getY() + length);
+        cangro=true;
         length = 0;
-        this.setLayoutX(rand+this.getLayoutX());
+        this.setLayoutX(rand + this.getLayoutX());
         Rotate rotater = new Rotate();
         rotater.setPivotX(0);
         rotater.setPivotY(0);

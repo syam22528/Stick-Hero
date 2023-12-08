@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -15,6 +16,14 @@ public class Character extends AnchorPane {
     private double movementSpeed;
     private boolean isUpright = true;
 
+    public boolean isUpright() {
+        return isUpright;
+    }
+
+    public void setUpright(boolean upright) {
+        isUpright = upright;
+    }
+
     private boolean isDead = false;
 
     private double currPosition;
@@ -22,7 +31,7 @@ public class Character extends AnchorPane {
     private int imagenum = 1;
 
     @FXML
-    private ImageView character;
+    ImageView character;
 
     public Character() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("character.fxml"));
@@ -37,19 +46,24 @@ public class Character extends AnchorPane {
     }
 
     public void reverseCharacter(){
-
+        if (isUpright){
+            character.setRotationAxis(Rotate.X_AXIS);
+            character.setRotate(180);
+            character.setY(74);
+        }
+        if (!isUpright){
+            character.setRotate(0);
+            character.setY(0);
+        }
+        isUpright = !isUpright;
     }
 
 
-    public void move(Block block2){
+    public void move(Double distance){
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(character);
-        transition.setByX(block2.rand-93+block2.blockWidth);
+        transition.setByX(distance);
         transition.setDuration(Duration.millis(1000));
-
-
-
-
         Timeline timeline = new Timeline((new KeyFrame(Duration.seconds(0.1), event ->{
             if (imagenum == 1 ){
                 character.setImage(new Image("stickherorunning.png"));
