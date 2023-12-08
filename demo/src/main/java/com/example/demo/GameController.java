@@ -72,9 +72,9 @@ public class GameController {
                 }
 
 
-                Duration delayDuration = Duration.millis(800); // Adjust delay duration as needed
+                Duration delayDuration = Duration.millis(800);
                 KeyFrame delay = new KeyFrame(delayDuration, event -> {
-                    // Rest of the code after the delay
+
                     System.out.println("character x: "+character.getLayoutX()+" stick x : " +  stick.getLayoutX() + " length : " + stick.getLength() + " block endpoint : " + block2.getEnd_point() + " block start point : " + block2.getStart_point() + "\n");
                     if ((stick.getLayoutX() + stick.getLength()) <= block2.getEnd_point() && (stick.getLayoutX() + stick.getLength()) >= block2.getStart_point()) {
                         scorern.AddGameScore();
@@ -83,7 +83,9 @@ public class GameController {
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
-                        character.move(block2);
+
+                        Double distance = block2.rand-93+block2.blockWidth;
+                        character.move(distance);
 
                         TranslateTransition transition1 = new TranslateTransition();
                         transition1.setNode(block2);
@@ -118,29 +120,53 @@ public class GameController {
                         timeline.play();
                     } else {
 
-                        FXMLLoader Gameview = null;
-                        Parent GameView = null;
-                        OverController overController = null;
 
-                        try {
-                            Gameview = new FXMLLoader(Objects.requireNonNull(getClass().getResource("GameOver.fxml")));
-//                            overController = (OverController) Gameview.getController();
-//                            overController.setFinalscore(scorern);
-                            GameView = Gameview.load();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
+                        Timeline timeline1 = new Timeline(
+                                new KeyFrame(Duration.millis(1), event1 -> character.move(stick.getLength()))
+                        );
 
 
-                        Scene GameOver = new Scene(GameView);
 
-                        Stage window = (Stage) gameRoot.getScene().getWindow();
-                        window.setScene(GameOver);
-                        window.show();
+                        TranslateTransition fallingTransition = new TranslateTransition();
+                        fallingTransition.setNode(character);
+                        fallingTransition.setByY(300);
+
+                        Timeline timeline2 = new Timeline(new KeyFrame(Duration.millis(1000), event1 -> fallingTransition.play()));
+
+
+                        Timeline timeline3 = new Timeline(new KeyFrame(Duration.millis(1000), event1 -> {
+//                                    FXMLLoader Gameview = null;
+                                    Parent GameView = null;
+                                    OverController overController = null;
+                                    try {
+//                                        Gameview = new FXMLLoader(Objects.requireNonNull(getClass().getResource("GameOver.fxml")));
+            //                            overController = (OverController) Gameview.getController();
+            //                            overController.setFinalscore(scorern);
+//                                        GameView = Gameview.load();
+                                        GameView = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("GameOver.fxml")));
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                        Scene GameOver = new Scene(GameView);
+
+                                        Stage window = (Stage) gameRoot.getScene().getWindow();
+                                        window.setScene(GameOver);
+                                        window.show();}
+
+                        ));
+
+                        SequentialTransition Transition = new SequentialTransition();
+                        Transition.getChildren().addAll(timeline1,timeline2, timeline3);
+                        Transition.play();
+
+
+
+
+
                     }
                 });
 
-                // Create a timeline with the delay and play it
+
                 Timeline timeline = new Timeline(delay);
                 timeline.play();
 

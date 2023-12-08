@@ -41,10 +41,10 @@ public class Character extends AnchorPane {
     }
 
 
-    public void move(Block block2){
+    public void move(Double distance){
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(character);
-        transition.setByX(block2.rand-93+block2.blockWidth);
+        transition.setByX(distance);
         transition.setDuration(Duration.millis(1000));
 
 
