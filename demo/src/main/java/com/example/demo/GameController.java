@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
@@ -82,11 +83,8 @@ public class GameController {
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
-                        TranslateTransition transitionn = new TranslateTransition();
-                        transitionn.setNode(character);
-                        transitionn.setByX(block2.rand-93+block2.blockWidth);
-                        transitionn.setDuration(Duration.millis(1000));
-                        transitionn.play();
+                        character.move(block2);
+
                         TranslateTransition transition1 = new TranslateTransition();
                         transition1.setNode(block2);
                         transition1.setByX(-block2.rand);
@@ -119,15 +117,25 @@ public class GameController {
                         );
                         timeline.play();
                     } else {
+
+                        FXMLLoader Gameview = null;
                         Parent GameView = null;
+                        OverController overController = null;
+
                         try {
-                            GameView = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("GameOver.fxml")));
+                            Gameview = new FXMLLoader(Objects.requireNonNull(getClass().getResource("GameOver.fxml")));
+//                            overController = (OverController) Gameview.getController();
+//                            overController.setFinalscore(scorern);
+                            GameView = Gameview.load();
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-                        Scene Home = new Scene(GameView);
+
+
+                        Scene GameOver = new Scene(GameView);
+
                         Stage window = (Stage) gameRoot.getScene().getWindow();
-                        window.setScene(Home);
+                        window.setScene(GameOver);
                         window.show();
                     }
                 });

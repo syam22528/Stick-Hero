@@ -28,7 +28,7 @@ public class Stick extends AnchorPane {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        this.setLayoutX(80);
+        this.setLayoutX(99);
         this.setLayoutY(519);
     }
 

@@ -45,7 +45,7 @@ public class Block extends AnchorPane {
 
         Random random = new Random();
         double width = random.nextDouble(50,125);
-        double x = random.nextDouble(150,300);
+        double x = random.nextDouble(150,450);
         this.setLayoutY(520);
         customiseWidth(width,x);
         addPerfect();
@@ -83,7 +83,7 @@ public class Block extends AnchorPane {
     public void resetBlock(double prev){
         Random random = new Random();
         int width = random.nextInt(50,200);
-        double x = random.nextDouble(150,300);
+        double x = random.nextDouble(150,450);
         customiseWidth(width,prev+x);
         addPerfect();
         blockWidth = width;
