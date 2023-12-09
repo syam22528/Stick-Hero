@@ -35,17 +35,24 @@ public class Scores extends AnchorPane implements Serializable {
         return scores;
     }
 
-    public static Scores getInstance(){
-        if (score == null){
-            score = new Scores();
-            Scores load = Scores.deserialize();
-            if(load != null){
-                score = load;
-            }
-
-        }
-        return score;
+//    public static Scores getInstance(){
+//        if (score == null){
+//            score = new Scores();
+//            Scores load = Scores.deserialize();
+//            if(load != null){
+//                score = load;
+//            }
+//
+//        }
+//        return score;
+//    }
+public static Scores getInstance() {
+    if (score == null) {
+        Scores load = Scores.deserialize();
+        score = (load != null) ? load : new Scores();
     }
+    return score;
+}
 
     private ArrayList<Integer> scores;
 

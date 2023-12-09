@@ -75,10 +75,7 @@ public class GameController {
 
     public void onSaveButtonclick(ActionEvent event) throws IOException {
 
-        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("SavedGame"));
-        out.writeObject(gamescore + "/n");
-        out.writeObject(block2);
-        out.close();
+        GameScore.serialize();
 
 
         Parent GameView = FXMLLoader.load(getClass().getResource("Homepage.fxml"));
