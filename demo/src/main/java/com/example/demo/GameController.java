@@ -130,13 +130,23 @@ public class GameController {
                         Parent GameView = null;
                         try {
                             GameView = FXMLLoader.load(getClass().getResource("GameOver.fxml"));
+                            Scene GameOver = new Scene(GameView);
+                            Stage window = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
+                            window.setScene(GameOver);
+                            window.show();
                         } catch (IOException e) {
+                            try {
+                                GameView = FXMLLoader.load(getClass().getResource("GameOver.fxml"));
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            Scene GameOver = new Scene(GameView);
+                            Stage window = new Stage();
+                            window.setScene(GameOver);
+                            window.show();
                             throw new RuntimeException(e);
                         }
-                        Scene GameOver = new Scene(GameView);
-                        Stage window = (Stage) ((Node)mouseEvent.getSource()).getScene().getWindow();
-                        window.setScene(GameOver);
-                        window.show();
+
 
                     }));
                     SequentialTransition Transition = new SequentialTransition();
