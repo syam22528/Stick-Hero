@@ -54,15 +54,17 @@ interface Sound {
 
 }
 
-class StickSound implements Sound {
+class StickSound extends AnchorPane implements Sound,Runnable {
     MediaPlayer mediaPlayer;
 
 
     public StickSound() {
-        String file = "src/main/resources/Audio/sticksound.wav";
-        Media media = new Media(new File(file).toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+//        String file = "src/main/resources/sticksound.wav";
+//        System.out.println("Playing moojik");
+//        Media media = new Media(new File(file).toURI().toString());
+//        mediaPlayer = new MediaPlayer(media);
+//        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+//        mediaPlayer.play();
     }
 
     @Override
@@ -73,6 +75,16 @@ class StickSound implements Sound {
     @Override
     public void stopSound() {
         mediaPlayer.stop();
+    }
+
+    @Override
+    public void run() {
+        String file = "src/main/resources/sticksound.wav";
+        System.out.println("Playing moojik");
+        Media media = new Media(new File(file).toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.play();
     }
 }
 

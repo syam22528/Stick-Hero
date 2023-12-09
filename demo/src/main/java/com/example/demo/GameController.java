@@ -32,6 +32,7 @@ public class GameController {
     @FXML
     AnchorPane gameRoot;
 
+    Thread s;
     Character character;
 
     Scores GameScore = Scores.getInstance();
@@ -105,6 +106,9 @@ public class GameController {
         gameRoot.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                StickSound sound = new StickSound();
+                s = new Thread(sound);
+                s.start();
                 stick.startGrow();
             }
         });
@@ -145,6 +149,7 @@ public class GameController {
                 if (closeWorking)
                     return;
                 try {
+                    s.stop();
                     stick.stopGrow();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);

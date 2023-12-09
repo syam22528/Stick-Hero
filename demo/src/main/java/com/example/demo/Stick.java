@@ -30,6 +30,7 @@ public class Stick extends AnchorPane {
         public void grow(){
             for(growListener listener : arr){
                 listener.onePixelGrow();
+
             }
         }
     }

@@ -55,6 +55,7 @@ public class Character extends AnchorPane {
             character.setRotationAxis(Rotate.X_AXIS);
             character.setRotate(180);
             character.setY(74);
+
         }
         if (!isUpright){
             character.setRotate(0);
