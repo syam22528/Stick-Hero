@@ -56,6 +56,7 @@ public static Scores getInstance() {
 
     private ArrayList<Integer> scores;
 
+    int cherryCount;
     private int highScore = 0;
 
     private int GameScore = 0;

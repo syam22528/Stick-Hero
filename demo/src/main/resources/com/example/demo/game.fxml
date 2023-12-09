@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<?import com.example.demo.BGSound?>
 <AnchorPane fx:id="gameRoot" prefHeight="733.0" prefWidth="600.0" style="-fx-border-width: 1080;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.GameController">
     <children>
         <ImageView fitHeight="733.0" fitWidth="600.0" opacity="0.53" pickOnBounds="true">
@@ -16,7 +14,7 @@
             </image>
         </ImageView>
 
-        <ImageView id="CherryImage" fitHeight="45.0" fitWidth="44.0" layoutX="553.0" layoutY="18.0">
+        <ImageView id="CherryImage" fitHeight="45.0" fitWidth="44.0" layoutX="520.0" layoutY="31.0">
             <image>
                 <Image url="@../../../cherries.png" />
             </image>
@@ -30,11 +28,9 @@
          <font>
             <Font size="33.0" />
          </font></Label>
-        <Label id="NumCherries" layoutX="558.0" layoutY="73.0" prefHeight="17.0" prefWidth="34.0" style="-fx-background-color: white;" />
-      <AnchorPane layoutX="46.0" layoutY="31.0" prefHeight="40.0" prefWidth="91.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#onSaveButtonclick" prefHeight="45.0" prefWidth="91.0" text="SAVE" />
-         </children>
-      </AnchorPane>
+        <Label fx:id="numCherries" alignment="CENTER" layoutX="513.0" layoutY="87.0" prefHeight="49.0" prefWidth="59.0">
+         <font>
+            <Font size="31.0" />
+         </font></Label>
     </children>
 </AnchorPane>

@@ -8,4 +8,7 @@ For playing the game, go to the StickHero class and run it.
 
 The JUnit tests are also included, which we're using for checking if the character is supposed to die or move forward. The methods in the tests check if the stick has landed in the correct place, with respect to the block or not. I've hardcoded the values no, but it can obviously be changed as per the requirement in the test, and if obviously being dynamically determined in the game.
 
+The replay button doesn't work sometimes on the first click, so try pressing it a few times. it will surely work.
+
+
 git link : https://github.com/syam22528/Ap-project/tree/main

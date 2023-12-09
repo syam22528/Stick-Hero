@@ -32,6 +32,7 @@ public class GameController {
     @FXML
     AnchorPane gameRoot;
 
+
     Thread s;
     boolean isDead = false;
     Character character;
@@ -40,6 +41,8 @@ public class GameController {
 
     @FXML
     Label gamescore;
+    @FXML
+    Label numCherries;
     Stick stick = new Stick();
     BGSound bg = new BGSound();
     Thread bgSound = new Thread(bg);
@@ -260,6 +263,8 @@ public class GameController {
                         transition4.setByX(-block2.rand);
 
                         double rand = block2.rand;
+                        Timeline cherryscoreupdate = new Timeline(new KeyFrame(Duration.seconds(0.1), event3->numCherries.setText(String.valueOf(cherry.getCherrycount()))));
+                        cherryscoreupdate.play();
                         ParallelTransition parallelTransition = new ParallelTransition();
                         parallelTransition.getChildren().addAll(transition1, transition2, transition3, fadeTransition2,transition4);
                         Timeline timeline1 = new Timeline(
