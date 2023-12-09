@@ -9,7 +9,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -24,9 +23,7 @@ import javafx.util.Duration;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.Objects;
 
 public class GameController {
@@ -39,7 +36,7 @@ public class GameController {
     boolean isDead = false;
     Character character;
 
-    Scores GameScore = Scores.getInstance();
+    Scores GameScore;
 
     @FXML
     Label gamescore;
@@ -53,9 +50,14 @@ public class GameController {
     private Block block1;
     Cherry cherry;
 
-    public GameController() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-
+    public GameController(int score) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        this.GameScore = Scores.getInstance();
+        GameScore.setGameScore(score);
+        System.out.println("he"+GameScore.getGameScore());
     }
+    public GameController() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        this.GameScore = Scores.getInstance();
+    };
 
     private boolean isSafe() {
         return true; //just for now, will be changed after logic implementation
@@ -90,8 +92,9 @@ public class GameController {
     public void initialize() throws InterruptedException {
         if (!gameRoot.getChildren().contains(bg)) {
             gameRoot.getChildren().add(bg);
-//            bg.playSound();
         }
+        gamescore.setText(String.valueOf(GameScore.getGameScore()));
+        System.out.println("he"+GameScore.getGameScore());
         block1 = new Block();
         block1.customiseWidth(100, 0);
         block1.removeDaPerfect();
