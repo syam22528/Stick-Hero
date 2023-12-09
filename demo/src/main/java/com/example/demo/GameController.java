@@ -164,7 +164,7 @@ public class GameController {
                     character.reverseCharacter();
                 else
                     return;
-                if (character.getCharacterPosition() >= block2.getBoundsInParent().getMaxX()-block2.blockWidth/2) {
+                if (character.getBoundsInParent().getMaxX() >= block2.getBoundsInParent().getMaxX()-block2.blockWidth/2) {
                     TranslateTransition fallingTransition = new TranslateTransition();
                     fallingTransition.setNode(character);
                     fallingTransition.setByY(300);
@@ -244,7 +244,7 @@ public class GameController {
 
                         Double distance = block2.rand - 93 + block2.blockWidth;
                         try {
-                            character.move(distance);
+                            character.move(distance, cherry);
                         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -339,7 +339,7 @@ public class GameController {
                         Timeline timeline1 = new Timeline(
                                 new KeyFrame(Duration.millis(1), event1 -> {
                                     try {
-                                        character.move(stick.getLength());
+                                        character.move(stick.getLength(), cherry);
                                     } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
                                         throw new RuntimeException(e);
                                     }

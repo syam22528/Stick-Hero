@@ -30,7 +30,7 @@ public class Character extends AnchorPane {
 
     private boolean isDead = false;
 
-    private double currPosition = 99;
+    private double currPosition;
 
     private int imagenum = 1;
 
@@ -66,18 +66,26 @@ public class Character extends AnchorPane {
 
     public double getCharacterPosition(){
 //        System.out.println("width : " + character.getImage().getWidth());
-        return this.currPosition;
+        return character.getX() + 145.2;
     }
 
-    public void move(Double distance) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public void move(Double distance, Cherry cherry) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 //        Sound heroSound = GameSounds.getInstance().getSound("hero");
 //        heroSound.playSound();
-//        this.currPosition+= distance;
+
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(character);
         transition.setByX(distance);
         transition.setDuration(Duration.millis(1500));
         Timeline timeline = new Timeline((new KeyFrame(Duration.seconds(0.1), event ->{
+//            System.out.println("character location: "+character.getBoundsInParent().getMinX());
+//            System.out.println("cherry location: "+cherry.getLocation());
+            if (!isUpright && (cherry.getOpacity() !=0) && ((cherry.getLocation() - 8) >= character.getBoundsInParent().getMinX()) && (character.getBoundsInParent().getMinX() <= (cherry.getLocation() + 8))){
+                System.out.println("character location"+character.getX());
+                System.out.println("cherry location"+cherry.getLocation());
+                cherry.setTransparent();
+                cherry.AddcherryCount();
+            }
             if (imagenum == 1 ){
                 HeroSound heroSound = new HeroSound();
                 Thread hero = new Thread(heroSound);
