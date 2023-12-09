@@ -1,6 +1,6 @@
 package com.example.demo;
 
-
+// This is a flyweight
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -46,6 +46,7 @@ public class Block extends AnchorPane {
         Random random = new Random();
         double width = random.nextDouble(50,125);
         double x = random.nextDouble(150,450);
+//        x = 150;
         this.setLayoutY(520);
         customiseWidth(width,x);
         addPerfect();
@@ -84,6 +85,7 @@ public class Block extends AnchorPane {
         Random random = new Random();
         int width = random.nextInt(50,200);
         double x = random.nextDouble(150,450);
+//        x = 150;
         customiseWidth(width,prev+x);
         addPerfect();
         blockWidth = width;

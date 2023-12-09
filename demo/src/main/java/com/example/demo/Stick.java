@@ -1,5 +1,7 @@
 package com.example.demo;
 
+
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -10,17 +12,25 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.IOException;
+import javax.sound.sampled.*;
+
 
 public class Stick extends AnchorPane {
     private final double growSpeed = 2.5;
+
+
     private double length = 0;
     private rotateStick rotateStick = new rotateStick();
     @FXML
     public Rectangle stick;
     private growStick growStick = new growStick();
 
-    public Stick() {
+
+//    private Sound sticksound = GameSounds.getInstance().getSound("stick");
+
+    public Stick() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("stick.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -33,7 +43,9 @@ public class Stick extends AnchorPane {
         this.setLayoutY(519);
     }
 
+
     boolean cangro = true;
+
     public void startGrow() {
         if (cangro) {
             System.out.println("stared");
@@ -67,6 +79,7 @@ public class Stick extends AnchorPane {
         }
     }
 
+
     private class rotateStick extends Thread {
         @Override
         public void run() {
@@ -90,7 +103,7 @@ public class Stick extends AnchorPane {
         growStick = new growStick();
         rotateStick = new rotateStick();
         stick.setY(stick.getY() + length);
-        cangro=true;
+        cangro = true;
         length = 0;
         this.setLayoutX(rand + this.getLayoutX());
         Rotate rotater = new Rotate();
