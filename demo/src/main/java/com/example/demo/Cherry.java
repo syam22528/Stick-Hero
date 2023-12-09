@@ -74,6 +74,8 @@ public class Cherry extends AnchorPane {
         return Location;
     }
 
+
+
     public void disappear(){
     }
 

@@ -244,7 +244,7 @@ public class GameController {
 
                         Double distance = block2.rand - 93 + block2.blockWidth;
                         try {
-                            character.move(distance);
+                            character.move(distance, cherry);
                         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -339,7 +339,7 @@ public class GameController {
                         Timeline timeline1 = new Timeline(
                                 new KeyFrame(Duration.millis(1), event1 -> {
                                     try {
-                                        character.move(stick.getLength());
+                                        character.move(stick.getLength(), cherry);
                                     } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
                                         throw new RuntimeException(e);
                                     }
