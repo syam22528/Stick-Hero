@@ -43,11 +43,10 @@ public class GameController {
     Thread bgSound = new Thread(bg);
     boolean closeWorking = false;
     boolean canflip = false;
-//    actualListener actualListener = new actualListener();
+    actualListener actualListener = new actualListener();
     private Block block2;
     private Block block1;
-
-    private Cherry cherry;
+    Cherry cherry;
 
     public GameController() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 
@@ -89,22 +88,20 @@ public class GameController {
     public void initialize() throws InterruptedException {
         if (!gameRoot.getChildren().contains(bg)) {
             gameRoot.getChildren().add(bg);
-            bgSound.start();
+//            bg.playSound();
         }
         block1 = new Block();
         block1.customiseWidth(100, 0);
         block1.removeDaPerfect();
         block2 = new Block();
-        cherry = new Cherry(block2);
-
-
+        stick.grower.addListener(actualListener);
         character = new Character();
-        gameRoot.getChildren().addAll(character, block1, block2, stick, cherry);
+        gameRoot.getChildren().addAll(character, block1, block2, stick);
         System.out.println(block2.getX() + "\n");
 
 
-//        bg.start();
-        gameRoot.addEventFilter(MouseEvent.MOUSE_PRESSED,   new EventHandler<MouseEvent>() {
+        bgSound.start();
+        gameRoot.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 stick.startGrow();
@@ -113,22 +110,19 @@ public class GameController {
         gameRoot.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (closeWorking)
+                if (canflip)
                     character.reverseCharacter();
-                if (character.getBoundsInLocal().getMaxX() > block2.getBoundsInLocal().getMaxX()) {
+                else
+                    return;
+                if (character.getBoundsInParent().getMaxX() >= block2.getBoundsInParent().getMaxX()-block2.blockWidth/2) {
                     TranslateTransition fallingTransition = new TranslateTransition();
                     fallingTransition.setNode(character);
                     fallingTransition.setByY(300);
                     Timeline timeline2 = new Timeline(new KeyFrame(Duration.millis(1000), event1 -> fallingTransition.play()));
                     Timeline timeline3 = new Timeline(new KeyFrame(Duration.millis(1), event1 -> {
-//                                    FXMLLoader Gameview = null;
                         Parent GameView = null;
                         try {
-//                                        Gameview = new FXMLLoader(Objects.requireNonNull(getClass().getResource("GameOver.fxml")));
-                            //                            overController = (OverController) Gameview.getController();
-                            //                            overController.setFinalscore(scorern);
-//                                        GameView = Gameview.load();
-                            GameView = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("GameOver.fxml")));
+                            GameView = FXMLLoader.load(getClass().getResource("GameOver.fxml"));
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -154,6 +148,7 @@ public class GameController {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
+                closeWorking = true;
                 Duration delayDuration = Duration.millis(800);
                 KeyFrame delay = new KeyFrame(delayDuration, event -> {
 
@@ -167,7 +162,7 @@ public class GameController {
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
-                        closeWorking = true;
+                        canflip = true;
                         if ((stick.getLayoutX() + stick.getLength()) <= (block2.perfect.getX() + 10) && (stick.getLayoutX() + stick.getLength()) >= block2.perfect.getX()) {
                             Text perfect = new Text("PERFECT! ");
                             perfect.setLayoutX(300);
@@ -196,7 +191,6 @@ public class GameController {
                         TranslateTransition transition1 = new TranslateTransition();
                         transition1.setNode(block2);
                         transition1.setByX(-block2.rand);
-
                         TranslateTransition transition2 = new TranslateTransition();
                         transition2.setNode(block1);
                         transition2.setByX(-block2.rand);
@@ -207,12 +201,15 @@ public class GameController {
                         fadeTransition2.setNode(stick);
                         fadeTransition2.setByX(-block2.rand);
                         TranslateTransition transition4 = new TranslateTransition();
+                        cherry = new Cherry(block2);
                         transition4.setNode(cherry);
                         transition4.setByX(-cherry.getLocation());
-
+                        Timeline timelineCherry = new Timeline(
+                                new KeyFrame(Duration.millis(400), event1 -> cherry.cherryReset(block2))
+                        );
                         double rand = block2.rand;
                         ParallelTransition parallelTransition = new ParallelTransition();
-                        parallelTransition.getChildren().addAll(transition1, transition2, transition3, transition4, fadeTransition2);
+                        parallelTransition.getChildren().addAll(transition1, transition2, transition3, fadeTransition2,transition4);
                         Timeline timeline1 = new Timeline(
                                 new KeyFrame(Duration.millis(1), event1 -> block2.resetBlock(block2.getX()))
                         );
@@ -223,13 +220,13 @@ public class GameController {
                                 new KeyFrame(Duration.millis(1), event1 -> block1.becomeWhatYouWereMeantToBe(rand))
                         );
                         Timeline timeline4 = new Timeline(
-                                new KeyFrame(Duration.millis(1), event1 -> closeWorking = false)
-                        );
-                        Timeline timeline5 = new Timeline(
-                                new KeyFrame(Duration.millis(400), event1 -> cherry.cherryReset(block2))
+                                new KeyFrame(Duration.millis(1), event1 -> {
+                                    closeWorking = false;
+                                    canflip = false;
+                                })
                         );
                         SequentialTransition transition = new SequentialTransition();
-                        transition.getChildren().addAll(parallelTransition, timeline2, timeline3, timeline1, timeline4, timeline5);
+                        transition.getChildren().addAll(parallelTransition, timeline2, timeline3, timeline1, timeline4,timelineCherry);
                         Timeline timeline = new Timeline(
 
                                 new KeyFrame(Duration.seconds(1), event2 -> {
@@ -239,8 +236,8 @@ public class GameController {
                                         TranslateTransition fallingTransition = new TranslateTransition();
                                         fallingTransition.setNode(character);
                                         fallingTransition.setByY(300);
-                                        Timeline timeline6 = new Timeline(new KeyFrame(Duration.millis(1000), event1 -> fallingTransition.play()));
-                                        Timeline timeline7 = new Timeline(new KeyFrame(Duration.millis(1000), event1 -> {
+                                        Timeline timeline5 = new Timeline(new KeyFrame(Duration.millis(1000), event1 -> fallingTransition.play()));
+                                        Timeline timeline6 = new Timeline(new KeyFrame(Duration.millis(1000), event1 -> {
 //                                    FXMLLoader Gameview = null;
                                             Parent GameView = null;
                                             OverController overController = null;
@@ -256,7 +253,7 @@ public class GameController {
                                             window.show();
                                         }));
                                         SequentialTransition Transition = new SequentialTransition();
-                                        Transition.getChildren().addAll(timeline6, timeline7);
+                                        Transition.getChildren().addAll(timeline5, timeline6);
                                         Transition.play();
                                     }
                                 })
@@ -316,12 +313,12 @@ public class GameController {
 
     }
 
-//    class actualListener implements Stick.growListener {
-//        @Override
-//        public void onePixelGrow() {
-//            stick.stick.setHeight(stick.length);
-//            stick.length += 1;
-//            stick.stick.setY(stick.stick.getY() - 1);
-//        }
-//    }
+    class actualListener implements Stick.growListener {
+        @Override
+        public void onePixelGrow() {
+            stick.stick.setHeight(stick.length);
+            stick.length += 1;
+            stick.stick.setY(stick.stick.getY() - 1);
+        }
+    }
 }

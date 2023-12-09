@@ -14,14 +14,30 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.sound.sampled.*;
 
 
 public class Stick extends AnchorPane {
+    interface growListener{
+        void onePixelGrow();
+    }
+    class growInit{
+        private ArrayList<growListener>arr = new ArrayList<>();
+        public void addListener(growListener listener){
+            arr.add(listener);
+        }
+        public void grow(){
+            for(growListener listener : arr){
+                listener.onePixelGrow();
+            }
+        }
+    }
+    growInit grower = new growInit();
     private final double growSpeed = 2.5;
 
 
-    private double length = 0;
+    double length = 0;
     private rotateStick rotateStick = new rotateStick();
     @FXML
     public Rectangle stick;
@@ -60,16 +76,13 @@ public class Stick extends AnchorPane {
             rotateStick.start();
         }
         cangro = false;
-//        wait(500);
     }
 
     private class growStick extends Thread {
         @Override
         public void run() {
             while (true) {
-                stick.setHeight(length);
-                length += 1;
-                stick.setY(stick.getY() - 1);
+                grower.grow();
                 try {
                     Thread.sleep(3);
                 } catch (InterruptedException e) {
@@ -100,6 +113,8 @@ public class Stick extends AnchorPane {
 
     public void reset(double rand) {
         System.out.println("reset");
+        System.out.println("sticklen: "+length);
+        System.out.println("stickheight: "+stick.getHeight());
         growStick = new growStick();
         rotateStick = new rotateStick();
         stick.setY(stick.getY() + length);
