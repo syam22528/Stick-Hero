@@ -23,7 +23,7 @@ public class Cherry extends AnchorPane {
         cherry.setOpacity(0);
     }
 
-    public Cherry(Block block){
+    public Cherry(Block block1, Block block2){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cherry.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
@@ -36,33 +36,35 @@ public class Cherry extends AnchorPane {
         Random random = new Random();
         int result = random.nextInt(1,3);
 
-        if (result == 1){
-            double location = random.nextDouble(105, block.getX());
+        if (result == 2){
+            double location = random.nextDouble(block1.getX()+100, block2.getX()-40);
             System.out.println(location);
             cherry.setOpacity(100);
             cherry.setX(location);
             cherry.setLayoutY(525);
             Location = location;
         } else{
-            cherry.setX(0);
             setTransparent();
         }
 
     }
 
-    public void cherryReset(Block block){
+    public void cherryReset(Block block1, Block block2){
         Random random = new Random();
         int result = random.nextInt(1,3);
+        System.out.println("block1.getx:"+ block1.getX() + "\n");
+        System.out.println("block2.getx:"+ block2.getX()+ "\n");
 
-        if (result == 1){
-            double location = random.nextDouble(105, block.getX());
+        if (result == 2){
+
+            double location = random.nextDouble(block1.getX()+100, block2.getX()-40);
+
             System.out.println(location);
             cherry.setOpacity(100);
             cherry.setX(location);
             cherry.setLayoutY(525);
             Location = location;
         } else{
-            cherry.setX(0);
             setTransparent();
         }
     }

@@ -75,7 +75,7 @@ public class Character extends AnchorPane {
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(character);
         transition.setByX(distance);
-        transition.setDuration(Duration.millis(1000));
+        transition.setDuration(Duration.millis(1500));
         Timeline timeline = new Timeline((new KeyFrame(Duration.seconds(0.1), event ->{
             if (imagenum == 1 ){
                 HeroSound heroSound = new HeroSound();
@@ -121,4 +121,7 @@ public class Character extends AnchorPane {
     }
 
 
+    public void setImage(Image image) {
+        character.setImage(image);
+    }
 }
