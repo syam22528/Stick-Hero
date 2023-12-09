@@ -30,7 +30,7 @@ public class Character extends AnchorPane {
 
     private boolean isDead = false;
 
-    private double currPosition;
+    private double currPosition = 99;
 
     private int imagenum = 1;
 
@@ -66,12 +66,13 @@ public class Character extends AnchorPane {
 
     public double getCharacterPosition(){
 //        System.out.println("width : " + character.getImage().getWidth());
-        return character.getX() + 145.2;
+        return this.currPosition;
     }
 
     public void move(Double distance) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 //        Sound heroSound = GameSounds.getInstance().getSound("hero");
 //        heroSound.playSound();
+//        this.currPosition+= distance;
         TranslateTransition transition = new TranslateTransition();
         transition.setNode(character);
         transition.setByX(distance);

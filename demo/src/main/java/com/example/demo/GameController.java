@@ -159,8 +159,8 @@ public class GameController {
                 closeWorking = true;
                 Duration delayDuration = Duration.millis(800);
                 KeyFrame delay = new KeyFrame(delayDuration, event -> {
-
-                    System.out.println("character x: " + character.getLayoutX() + " stick x : " + stick.getLayoutX() + " length : " + stick.getLength() + " block endpoint : " + block2.getEnd_point() + " block start point : " + block2.getStart_point() + "\n");
+                    character.setCurrPosition(stick.getLayoutX());
+                    System.out.println("character x: " + character.getCharacterPosition() + " stick x : " + stick.getLayoutX() + " length : " + stick.getLength() + " block endpoint : " + block2.getEnd_point() + " block start point : " + block2.getStart_point() + "\n");
                     if ((stick.getLayoutX() + stick.getLength()) <= block2.getEnd_point() && (stick.getLayoutX() + stick.getLength()) >= block2.getStart_point()) {
 
                         GameScore.AddGameScore();
