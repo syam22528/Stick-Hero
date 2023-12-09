@@ -121,7 +121,7 @@ public class GameController {
                     character.reverseCharacter();
                 else
                     return;
-                if (character.getBoundsInParent().getMaxX() >= block2.getBoundsInParent().getMaxX()-block2.blockWidth/2) {
+                if (character.getCharacterPosition() >= block2.getBoundsInParent().getMaxX()-block2.blockWidth/2) {
                     TranslateTransition fallingTransition = new TranslateTransition();
                     fallingTransition.setNode(character);
                     fallingTransition.setByY(300);
@@ -264,7 +264,7 @@ public class GameController {
                                                     throw new RuntimeException(ex);
                                                 }
                                                 bgSound.stop();
-                                                Stage window = (Stage) gameRoot.getScene().getWindow();
+                                                Stage window = new Stage();
                                                 Scene home = new Scene(HomeView);
                                                 window.setScene(home);
                                                 window.show();
