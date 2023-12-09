@@ -96,7 +96,8 @@ public class GameController {
         block2 = new Block();
         stick.grower.addListener(actualListener);
         character = new Character();
-        gameRoot.getChildren().addAll(character, block1, block2, stick);
+        cherry = new Cherry(block2);
+        gameRoot.getChildren().addAll(character, block1, block2, stick, cherry);
         System.out.println(block2.getX() + "\n");
 
 
@@ -201,10 +202,11 @@ public class GameController {
                         fadeTransition2.setNode(stick);
                         fadeTransition2.setByX(-block2.rand);
                         TranslateTransition transition4 = new TranslateTransition();
-                        cherry = new Cherry(block2);
                         transition4.setNode(cherry);
                         transition4.setByX(-cherry.getLocation());
-
+                        Timeline timelineCherry = new Timeline(
+                                new KeyFrame(Duration.millis(400), event1 -> cherry.cherryReset(block2))
+                        );
                         double rand = block2.rand;
                         ParallelTransition parallelTransition = new ParallelTransition();
                         parallelTransition.getChildren().addAll(transition1, transition2, transition3, fadeTransition2,transition4);
@@ -222,9 +224,6 @@ public class GameController {
                                     closeWorking = false;
                                     canflip = false;
                                 })
-                        );
-                        Timeline timelineCherry = new Timeline(
-                                new KeyFrame(Duration.millis(400), event1 -> cherry.cherryReset(block2))
                         );
                         SequentialTransition transition = new SequentialTransition();
                         transition.getChildren().addAll(parallelTransition, timeline2, timeline3, timeline1, timeline4,timelineCherry);
