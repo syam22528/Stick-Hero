@@ -30,6 +30,7 @@ public class StickHero extends Application {
 //    Sound bgSound = GameSounds.getInstance().getSound("bg");
 
     public StickHero() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+
     }
 
 

@@ -43,9 +43,11 @@ public class GameController {
     Thread bgSound = new Thread(bg);
     boolean closeWorking = false;
     boolean canflip = false;
-    actualListener actualListener = new actualListener();
+//    actualListener actualListener = new actualListener();
     private Block block2;
     private Block block1;
+
+    private Cherry cherry;
 
     public GameController() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 
@@ -87,20 +89,22 @@ public class GameController {
     public void initialize() throws InterruptedException {
         if (!gameRoot.getChildren().contains(bg)) {
             gameRoot.getChildren().add(bg);
-//            bg.playSound();
+            bgSound.start();
         }
         block1 = new Block();
         block1.customiseWidth(100, 0);
         block1.removeDaPerfect();
         block2 = new Block();
+        cherry = new Cherry(block2);
+
 
         character = new Character();
-        gameRoot.getChildren().addAll(character, block1, block2, stick);
+        gameRoot.getChildren().addAll(character, block1, block2, stick, cherry);
         System.out.println(block2.getX() + "\n");
 
 
-        bgSound.start();
-        gameRoot.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+//        bg.start();
+        gameRoot.addEventFilter(MouseEvent.MOUSE_PRESSED,   new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 stick.startGrow();
@@ -192,6 +196,7 @@ public class GameController {
                         TranslateTransition transition1 = new TranslateTransition();
                         transition1.setNode(block2);
                         transition1.setByX(-block2.rand);
+
                         TranslateTransition transition2 = new TranslateTransition();
                         transition2.setNode(block1);
                         transition2.setByX(-block2.rand);
@@ -201,9 +206,13 @@ public class GameController {
                         TranslateTransition fadeTransition2 = new TranslateTransition();
                         fadeTransition2.setNode(stick);
                         fadeTransition2.setByX(-block2.rand);
+                        TranslateTransition transition4 = new TranslateTransition();
+                        transition4.setNode(cherry);
+                        transition4.setByX(-cherry.getLocation());
+
                         double rand = block2.rand;
                         ParallelTransition parallelTransition = new ParallelTransition();
-                        parallelTransition.getChildren().addAll(transition1, transition2, transition3, fadeTransition2);
+                        parallelTransition.getChildren().addAll(transition1, transition2, transition3, transition4, fadeTransition2);
                         Timeline timeline1 = new Timeline(
                                 new KeyFrame(Duration.millis(1), event1 -> block2.resetBlock(block2.getX()))
                         );
@@ -216,8 +225,11 @@ public class GameController {
                         Timeline timeline4 = new Timeline(
                                 new KeyFrame(Duration.millis(1), event1 -> closeWorking = false)
                         );
+                        Timeline timeline5 = new Timeline(
+                                new KeyFrame(Duration.millis(400), event1 -> cherry.cherryReset(block2))
+                        );
                         SequentialTransition transition = new SequentialTransition();
-                        transition.getChildren().addAll(parallelTransition, timeline2, timeline3, timeline1, timeline4);
+                        transition.getChildren().addAll(parallelTransition, timeline2, timeline3, timeline1, timeline4, timeline5);
                         Timeline timeline = new Timeline(
 
                                 new KeyFrame(Duration.seconds(1), event2 -> {
@@ -227,8 +239,8 @@ public class GameController {
                                         TranslateTransition fallingTransition = new TranslateTransition();
                                         fallingTransition.setNode(character);
                                         fallingTransition.setByY(300);
-                                        Timeline timeline5 = new Timeline(new KeyFrame(Duration.millis(1000), event1 -> fallingTransition.play()));
-                                        Timeline timeline6 = new Timeline(new KeyFrame(Duration.millis(1000), event1 -> {
+                                        Timeline timeline6 = new Timeline(new KeyFrame(Duration.millis(1000), event1 -> fallingTransition.play()));
+                                        Timeline timeline7 = new Timeline(new KeyFrame(Duration.millis(1000), event1 -> {
 //                                    FXMLLoader Gameview = null;
                                             Parent GameView = null;
                                             OverController overController = null;
@@ -244,7 +256,7 @@ public class GameController {
                                             window.show();
                                         }));
                                         SequentialTransition Transition = new SequentialTransition();
-                                        Transition.getChildren().addAll(timeline5, timeline6);
+                                        Transition.getChildren().addAll(timeline6, timeline7);
                                         Transition.play();
                                     }
                                 })
@@ -304,12 +316,12 @@ public class GameController {
 
     }
 
-    class actualListener implements Stick.growListener {
-        @Override
-        public void onePixelGrow() {
-            stick.stick.setHeight(stick.length);
-            stick.length += 1;
-            stick.stick.setY(stick.stick.getY() - 1);
-        }
-    }
+//    class actualListener implements Stick.growListener {
+//        @Override
+//        public void onePixelGrow() {
+//            stick.stick.setHeight(stick.length);
+//            stick.length += 1;
+//            stick.stick.setY(stick.stick.getY() - 1);
+//        }
+//    }
 }
