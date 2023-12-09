@@ -33,6 +33,7 @@ public class GameController {
     AnchorPane gameRoot;
 
     Thread s;
+    boolean isDead = false;
     Character character;
 
     Scores GameScore = Scores.getInstance();
@@ -45,7 +46,7 @@ public class GameController {
     boolean closeWorking = false;
     boolean canflip = false;
     actualListener actualListener = new actualListener();
-    private Block block2;
+    Block block2;
     private Block block1;
     Cherry cherry;
 
@@ -265,6 +266,7 @@ public class GameController {
                         );
                         timeline.play();
                     } else {
+                        isDead = true;
                         Timeline timeline1 = new Timeline(
                                 new KeyFrame(Duration.millis(1), event1 -> {
                                     try {
@@ -316,6 +318,27 @@ public class GameController {
 //        }
 
 
+    }
+
+    public boolean checkIfOutside(double x, double y){ //x = stick, y = block end
+        if(x > y){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkifBehind(double x, double y){ //x = stick, y = block start
+        if(x < y){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isSafe(double x, double start_point, double end_point){
+        if(x >= start_point && x <= end_point){
+            return true;
+        }
+        return false;
     }
 
     class actualListener implements Stick.growListener {
