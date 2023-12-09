@@ -20,7 +20,7 @@ public class Cherry extends AnchorPane {
 
 
     public void setTransparent(){
-        cherry.setOpacity(100);
+        cherry.setOpacity(0);
     }
 
     public Cherry(Block block){

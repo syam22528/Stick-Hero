@@ -204,9 +204,7 @@ public class GameController {
                         cherry = new Cherry(block2);
                         transition4.setNode(cherry);
                         transition4.setByX(-cherry.getLocation());
-                        Timeline timelineCherry = new Timeline(
-                                new KeyFrame(Duration.millis(400), event1 -> cherry.cherryReset(block2))
-                        );
+
                         double rand = block2.rand;
                         ParallelTransition parallelTransition = new ParallelTransition();
                         parallelTransition.getChildren().addAll(transition1, transition2, transition3, fadeTransition2,transition4);
@@ -224,6 +222,9 @@ public class GameController {
                                     closeWorking = false;
                                     canflip = false;
                                 })
+                        );
+                        Timeline timelineCherry = new Timeline(
+                                new KeyFrame(Duration.millis(400), event1 -> cherry.cherryReset(block2))
                         );
                         SequentialTransition transition = new SequentialTransition();
                         transition.getChildren().addAll(parallelTransition, timeline2, timeline3, timeline1, timeline4,timelineCherry);
