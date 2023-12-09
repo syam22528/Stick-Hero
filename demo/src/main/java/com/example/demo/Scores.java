@@ -7,9 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Scores extends AnchorPane {
+public class Scores extends AnchorPane implements Serializable {
 
     private static Scores score = null;
 

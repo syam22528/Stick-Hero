@@ -10,6 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -112,6 +114,47 @@ public class GameController {
                 s = new Thread(sound);
                 s.start();
                 stick.startGrow();
+            }
+        });
+        gameRoot.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event)
+
+            {
+                if (event.isControlDown() && event.getCode() == KeyCode.S) {
+                    Text perfect = new Text("Saving...");
+                    perfect.setLayoutX(300);
+                    perfect.setLayoutY(100);
+                    perfect.setFill(Color.RED);
+                    perfect.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+                    gameRoot.getChildren().add(perfect);
+                    FadeTransition textDisappear = new FadeTransition();
+                    textDisappear.setDuration(Duration.millis(1000));
+                    textDisappear.setNode(perfect);
+                    textDisappear.setFromValue(10);
+                    textDisappear.setToValue(0);
+                    textDisappear.play();
+
+                    try {
+                        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("SavedGame.txt"));
+                        out.writeObject(GameScore); // Write game score directly
+                        System.out.println("Game data saved successfully.");
+                    } catch (IOException e) {
+                        e.printStackTrace(); // Log the exception
+                        System.out.println("Error saving game data: " + e.getMessage());
+                    }
+                }
+                Parent GameView = null;
+                try {
+                    GameView = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Homepage.fxml")));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                Scene Home = new Scene(GameView);
+
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(Home);
+                window.show();
             }
         });
         gameRoot.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
