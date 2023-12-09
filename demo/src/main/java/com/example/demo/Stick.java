@@ -87,6 +87,7 @@ public class Stick extends AnchorPane {
                 try {
                     Thread.sleep(3);
                 } catch (InterruptedException e) {
+                    System.out.println("here\n ///////////////////////////////////////////////////");
                     throw new RuntimeException(e);
                 }
             }

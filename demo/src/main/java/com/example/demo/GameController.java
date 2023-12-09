@@ -251,14 +251,28 @@ public class GameController {
                                             OverController overController = null;
                                             try {
                                                 GameView = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("GameOver.fxml")));
-                                            } catch (IOException e) {
-                                                throw new RuntimeException(e);
-                                            }
-                                            Scene GameOver = new Scene(GameView);
+                                                bgSound.stop();
+                                                Stage window = (Stage) gameRoot.getScene().getWindow();
+                                                Scene GameOver = new Scene(GameView);
+                                                window.setScene(GameOver);
+                                                window.show();
+                                            } catch (Exception e) {
+                                                Parent HomeView = null;
+                                                try {
+                                                    HomeView = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("HomePage.fxml")));
+                                                } catch (IOException ex) {
+                                                    throw new RuntimeException(ex);
+                                                }
+                                                bgSound.stop();
+                                                Stage window = (Stage) gameRoot.getScene().getWindow();
+                                                Scene home = new Scene(HomeView);
+                                                window.setScene(home);
+                                                window.show();
 
-                                            Stage window = (Stage) gameRoot.getScene().getWindow();
-                                            window.setScene(GameOver);
-                                            window.show();
+                                            }
+
+
+
                                         }));
                                         SequentialTransition Transition = new SequentialTransition();
                                         Transition.getChildren().addAll(timeline5, timeline6);
