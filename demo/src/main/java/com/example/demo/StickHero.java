@@ -17,6 +17,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -25,9 +27,15 @@ public class StickHero extends Application {
     Stage window;
     Scene Home;
 
+//    Sound bgSound = GameSounds.getInstance().getSound("bg");
+
+    public StickHero() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    }
+
 
     @Override
     public void start(Stage stage) throws IOException {
+//        bgSound.playSound();
         window = stage;
         FXMLLoader fxmlLoader = new FXMLLoader(StickHero.class.getResource("HomePage.fxml"));
         Parent sc = fxmlLoader.load();

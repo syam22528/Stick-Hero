@@ -20,16 +20,37 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javafx.scene.control.*;
+
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class GameController {
 
+
     @FXML
     AnchorPane gameRoot;
 
     Character character;
+
+    Scores GameScore = Scores.getInstance();
+
+    @FXML
+    Label gamescore;
+
+    private Block block2;
+
+    private Block block1;
+
+
+    public GameController() throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+
+    }
 
     private boolean isSafe() {
         return true; //just for now, will be changed after logic implementation
@@ -48,21 +69,49 @@ public class GameController {
     }
 
     Stick stick = new Stick();
-    @FXML
-    Scores scorern;
+
+
 
     boolean closeWorking = false;
 
+    public void onSaveButtonclick(ActionEvent event ) throws IOException {
+
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("SavedGame"));
+        out.writeObject(gamescore + "/n");
+        out.writeObject(block2);
+        out.close();
+
+
+
+
+
+
+
+
+
+
+
+        Parent GameView = FXMLLoader.load(getClass().getResource("Homepage.fxml"));
+        Scene Home = new Scene(GameView);
+
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(Home);
+        window.show();
+    }
+
     @FXML
     public void initialize() throws InterruptedException {
-        Block block1 = new Block();
+        block1 = new Block();
         block1.customiseWidth(100, 0);
         block1.removeDaPerfect();
-        Block block2 = new Block();
+        block2 = new Block();
 
         character = new Character();
         gameRoot.getChildren().addAll(character, block1, block2, stick);
         System.out.println(block2.getX() + "\n");
+
+
+
         gameRoot.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -119,7 +168,9 @@ public class GameController {
 
                     System.out.println("character x: " + character.getLayoutX() + " stick x : " + stick.getLayoutX() + " length : " + stick.getLength() + " block endpoint : " + block2.getEnd_point() + " block start point : " + block2.getStart_point() + "\n");
                     if ((stick.getLayoutX() + stick.getLength()) <= block2.getEnd_point() && (stick.getLayoutX() + stick.getLength()) >= block2.getStart_point()) {
-                        scorern.AddGameScore();
+
+                        GameScore.AddGameScore();
+                        gamescore.setText(String.valueOf(GameScore.getGameScore()));
                         try {
                             Thread.sleep(300);
                         } catch (InterruptedException e) {
@@ -139,12 +190,17 @@ public class GameController {
                             textDisappear.setFromValue(10);
                             textDisappear.setToValue(0);
                             textDisappear.play();
-                            scorern.AddGameScore();
+                            GameScore.AddGameScore();
+                            gamescore.setText(String.valueOf(GameScore.getGameScore()));
 
                         }
 
                         Double distance = block2.rand - 93 + block2.blockWidth;
-                        character.move(distance);
+                        try {
+                            character.move(distance);
+                        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+                            throw new RuntimeException(e);
+                        }
 
                         TranslateTransition transition1 = new TranslateTransition();
                         transition1.setNode(block2);
@@ -176,6 +232,7 @@ public class GameController {
                         SequentialTransition transition = new SequentialTransition();
                         transition.getChildren().addAll(parallelTransition, timeline2, timeline3, timeline1, timeline4);
                         Timeline timeline = new Timeline(
+
                                 new KeyFrame(Duration.seconds(1), event2 -> {
                                     if(character.isUpright())
                                         transition.play();
@@ -212,21 +269,21 @@ public class GameController {
                         timeline.play();
                     } else {
                         Timeline timeline1 = new Timeline(
-                                new KeyFrame(Duration.millis(1), event1 -> character.move(stick.getLength()))
+                                new KeyFrame(Duration.millis(1), event1 -> {
+                                    try {
+                                        character.move(stick.getLength());
+                                    } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                })
                         );
                         TranslateTransition fallingTransition = new TranslateTransition();
                         fallingTransition.setNode(character);
                         fallingTransition.setByY(300);
                         Timeline timeline2 = new Timeline(new KeyFrame(Duration.millis(1000), event1 -> fallingTransition.play()));
                         Timeline timeline3 = new Timeline(new KeyFrame(Duration.millis(1000), event1 -> {
-//                                    FXMLLoader Gameview = null;
                             Parent GameView = null;
-                            OverController overController = null;
                             try {
-//                                        Gameview = new FXMLLoader(Objects.requireNonNull(getClass().getResource("GameOver.fxml")));
-                                //                            overController = (OverController) Gameview.getController();
-                                //                            overController.setFinalscore(scorern);
-//                                        GameView = Gameview.load();
                                 GameView = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("GameOver.fxml")));
                             } catch (IOException e) {
                                 throw new RuntimeException(e);

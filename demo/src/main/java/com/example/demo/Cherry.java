@@ -1,23 +1,10 @@
 package com.example.demo;
 
-import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-
-public class Cherry extends AnchorPane {
-
-    @FXML
-    ImageView cherry;
+public class Cherry {
 
     private int Cherrycount = 0;
 
-    public Cherry(){
-        cherry.setImage(new Image("cherries.png"));
-    }
-
     public void disappear(){
-        cherry.setImage(null);
     }
 
     public void RandomCherryGenerate(){}
