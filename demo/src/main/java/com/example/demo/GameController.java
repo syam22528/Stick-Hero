@@ -135,14 +135,7 @@ public class GameController {
                     textDisappear.setToValue(0);
                     textDisappear.play();
 
-                    try {
-                        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("SavedGame.txt"));
-                        out.writeObject(GameScore); // Write game score directly
-                        System.out.println("Game data saved successfully.");
-                    } catch (IOException e) {
-                        e.printStackTrace(); // Log the exception
-                        System.out.println("Error saving game data: " + e.getMessage());
-                    }
+                    GameScore.serialize();
                 }
                 Parent GameView = null;
                 try {
@@ -168,6 +161,7 @@ public class GameController {
                     TranslateTransition fallingTransition = new TranslateTransition();
                     fallingTransition.setNode(character);
                     fallingTransition.setByY(300);
+                    GameScore.serialize();
                     Timeline timeline2 = new Timeline(new KeyFrame(Duration.millis(1000), event1 -> fallingTransition.play()));
                     Timeline timeline3 = new Timeline(new KeyFrame(Duration.millis(1), event1 -> {
                         Parent GameView = null;
